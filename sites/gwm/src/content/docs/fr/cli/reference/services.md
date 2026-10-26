@@ -52,16 +52,30 @@ ids que `attach` attend.
 `GWM_AGENTS_HOME` remplace le répertoire home lu par les scans d'artefacts,
 principalement un point d'injection déterministe pour les tests et la CI.
 
-## `gwm doctor [--format=text|json]`
+## `gwm doctor [--format=text|json] [--fix]`
 
-Lance 8 vérifications de santé ; rapporte chacune avec `✓ / ! / ✗` ; sort `0 / 1 / 2`. Conçu pour la CI et les hooks de pre-commit. Voir [Intégrations → `gwm doctor`](/fr/integrations/doctor) pour le détail par vérification.
+Lance 11 vérifications de santé ; rapporte chacune avec `✓ / ! / ✗` ; sort `0 / 1 / 2`. Conçu pour la CI et les hooks de pre-commit. Voir [Intégrations → `gwm doctor`](/fr/integrations/doctor) pour le détail par vérification.
 
-![`gwm doctor` : les huit vérifications avec leur statut `✓ / ! / ✗`](../../../../../assets/captures/doctor.png)
+![`gwm doctor` : les vérifications avec leur statut `✓ / ! / ✗`](../../../../../assets/captures/doctor.png)
 
 `--format=json` (issue #38) émet le tableau de vérifications plus les agrégats `severity` et `exit_code`, avec le schéma à [`docs/schema/doctor.schema.json`](https://github.com/kbrdn1/gwm-cli/blob/main/docs/schema/doctor.schema.json). Le **code de sortie du processus est identique** à la forme texte (le JSON le porte aussi comme champ), donc `gwm doctor --format=json` fonctionne toujours dans un garde `if` :
 
 ```bash
 gwm doctor --format=json | jq '.checks[] | select(.status == "failed")'
+```
+
+`--fix` (issue #633) est la seule remédiation que porte une vérification, et la seule
+chose de cette page qui **écrit** : il supprime les clés `branch.<name>.gwm-*` qu'une
+branche supprimée a laissées derrière elle, dans `.git/config` et nulle part ailleurs.
+Un `gwm doctor` nu n'écrit jamais. Il s'exécute avant le rapport, donc les vérifications
+affichées en dessous reflètent l'état réparé, et sa propre ligne est en texte seul pour
+que `--format=json` reste parsable. Les clés atteintes via `include.path` vivent dans un
+fichier que gwm ne réécrit pas : elles sont signalées comme survivantes au lieu d'être
+comptées comme purgées.
+
+```bash
+gwm doctor --fix
+# ✓ purged 869 orphan branch config key(s) from 162 deleted branch(es)
 ```
 
 ## `gwm daemon [--socket <path>] [--poll-ms <ms>]` (issue #38)

@@ -422,6 +422,10 @@ layout = "compact"
 # dispositions.
 dim_unfocused = false
 
+# Lit les événements souris. On par défaut ; `false` rend la sélection de texte
+# du terminal, les deux étant mutuellement exclusives. `M` bascule à chaud.
+mouse = true
+
 # Replie le bloc Status de la sidebar sur une ligne (branche · head · état ·
 # diff · âge). On par défaut ; false rend le bloc labellisé de quatre lignes.
 status_one_line = true
@@ -493,7 +497,22 @@ L'aplat de l'en-tête est le [rôle de thème](/fr/tui/themes) `section_bg`, une
 
 Les surcouches et les modales gardent leur bordure dans les deux cas - un panneau qui flotte au-dessus du contenu est précisément là où un filet se justifie.
 
-Une valeur inconnue est une **erreur de config au chargement**. `layout`, `dim_unfocused`, `status_one_line`, `note_vim`, `mux_open_in`, `mux_pane_direction`, `terminal_browser` et `terminal_browser_open_in` sont aussi exposés dans le panneau Settings sous l'onglet **TUI** (`4`), où faire défiler le choix s'applique à chaud.
+Une valeur inconnue est une **erreur de config au chargement**. `layout`, `dim_unfocused`, `mouse`, `status_one_line`, `note_vim`, `mux_open_in`, `mux_pane_direction`, `terminal_browser` et `terminal_browser_open_in` sont aussi exposés dans le panneau Settings sous l'onglet **TUI** (`4`), où faire défiler le choix s'applique à chaud.
+
+### Mouse
+
+`mouse` décide si la TUI lit les événements souris
+([#624](https://github.com/kbrdn1/gwm-cli/issues/624)). **On par défaut** - le
+clic sur une ligne, un panneau, une liste de modale, un onglet des Paramètres
+ou les `▤` / `⚙` de l'en-tête passe par là.
+
+C'est un vrai échange, pas une amélioration stricte. Lire la souris et laisser
+le terminal faire sa propre sélection de texte sont mutuellement exclusifs :
+tant que gwm lit, un glissement lui appartient et le terminal ne sélectionne
+pas. Mettez-le à `false` si vous copiez des chemins à la souris plus souvent
+que vous ne cliquez sur des lignes - `M` bascule pour la session dans les deux
+cas, et l'en-tête porte une pastille `mouse off · M` tant que c'est coupé.
+Voir [Raccourcis → souris](/fr/tui/keybindings#souris-m).
 
 ### dim_unfocused
 
@@ -757,55 +776,58 @@ Ce sont les valeurs par défaut résolues du binaire actuel (après le redesign 
 keymap #290). `gwm tui keys` affiche la liste vivante avec une source par ligne,
 et fait foi si un futur build décale une valeur par défaut.
 
-| Slug d'action             | Chord(s) par défaut | Verbe                                                         |
-| :------------------------ | :------------------ | :------------------------------------------------------------ |
-| `down`                    | `j`, `Down`         | déplacer la sélection vers le bas                             |
-| `up`                      | `k`, `Up`           | déplacer la sélection vers le haut                            |
-| `top`                     | `g g`               | sauter à la première ligne                                    |
-| `bottom`                  | `G`, `End`          | sauter à la dernière ligne                                    |
-| `focus_swap`              | `Tab`               | échanger le focus entre la table et la sidebar                |
-| `focus_worktrees`         | `1`                 | focus sur le panneau des worktrees                            |
-| `focus_status`            | `2`                 | focus sur le panneau de statut                                |
-| `command_logs`            | `3`                 | ouvrir l'overlay Command Logs                                 |
-| `config_panel`            | `4`                 | ouvrir le panneau Settings                                    |
-| `working_tree`            | `W`                 | ouvrir la liste Working Tree en pleine taille                 |
-| `commits`                 | `c`                 | ouvrir la liste des commits en plein écran, avec load-more    |
-| `toggle_sidebar`          | `V`                 | afficher / masquer la sidebar de détails                      |
-| `toggle_sidebar_mode`     | `S`                 | faire cycler le panneau Details (`commits` ↔ `stashes`)       |
-| `cycle_sidebar_layout`    | `z`                 | faire cycler le layout (`auto` → côte-à-côte → empilé → auto) |
-| `toggle_sidebar_position` | `v`                 | basculer la sidebar gauche ↔ droite                           |
-| `filter`                  | `/`                 | ouvrir la barre de filtre fuzzy                               |
-| `refresh`                 | `f`                 | rafraîchir la liste des worktrees                             |
-| `sync`                    | `s`                 | fetch + rebase sur l'upstream (`gwm sync`)                    |
-| `create`                  | `n`                 | ouvrir l'overlay de nouveau worktree                          |
-| `toggle_select`           | `Space`             | marquer / démarquer la ligne pour une suppression en lot      |
-| `delete`                  | `d`                 | ouvrir l'overlay de confirmation (sur les lignes marquées)    |
-| `bootstrap`               | `b`                 | ré-exécuter le bootstrap sur le worktree sélectionné          |
-| `delete_branch`           | `D`                 | armer la suppression de branche au remove                     |
-| `pull`                    | `p`                 | `git pull` sur la branche sélectionnée (async)                |
-| `push`                    | `P`                 | `git push` sur la branche sélectionnée (async)                |
-| `edit_worktree`           | `e`                 | renommer le worktree / la branche                             |
-| `edit_note`               | `N`                 | éditer la note du worktree dans une modale                    |
-| `exit_to_worktree`        | `E`                 | quitter et imprimer le chemin sélectionné sur stdout          |
-| `lazygit_pty`             | `l`                 | lazygit dans l'overlay PTY embarqué (`[git_tui]`)             |
-| `lazygit_fullscreen`      | `L`                 | lazygit en plein écran                                        |
-| `review_pty`              | `r`                 | outil de review dans l'overlay PTY (`[review]`)               |
-| `review_fullscreen`       | `R`                 | outil de review en plein écran                                |
-| `terminal_pty`            | `o`                 | dispatch d'ouverture dans l'overlay PTY (`[tui.open]`)        |
-| `terminal_fullscreen`     | `O`                 | menu de mode d'ouverture / terminal plein écran               |
-| `yank_path`               | `Y`                 | copier le chemin du worktree                                  |
-| `yank_branch_name`        | `y`                 | copier le nom de la branche                                   |
-| `yank_worktree_name`      | `w`                 | copier le nom du worktree                                     |
-| `mux_pane`                | `t`                 | ouvrir le worktree dans un nouveau pane tmux / zellij / herdr |
-| `macro_one`               | `h`                 | exécuter `[tui.macro1]`                                       |
-| `macro_two`               | `H`                 | exécuter `[tui.macro2]`                                       |
-| `browse_links`            | `B`                 | parcourir les liens issue / PR                                |
-| `open_docs`               | `.`                 | ouvrir la doc dans le navigateur                              |
-| `link`                    | `i`                 | ouvrir le prompt de lien issue/PR                             |
-| `fetch_github`            | `F`                 | récupérer l'état d'issue/PR GitHub                            |
-| `help`                    | `?`                 | basculer l'overlay d'aide                                     |
-| `quit`                    | `q`                 | quitter la TUI                                                |
-| `command_palette`         | `:`                 | ouvrir la palette de commandes                                |
+| Slug d'action             | Chord(s) par défaut | Verbe                                                                              |
+| :------------------------ | :------------------ | :--------------------------------------------------------------------------------- |
+| `down`                    | `j`, `Down`         | déplacer la sélection vers le bas                                                  |
+| `up`                      | `k`, `Up`           | déplacer la sélection vers le haut                                                 |
+| `top`                     | `g g`               | sauter à la première ligne                                                         |
+| `bottom`                  | `G`, `End`          | sauter à la dernière ligne                                                         |
+| `focus_swap`              | `Tab`               | échanger le focus entre la table et la sidebar                                     |
+| `focus_worktrees`         | `1`                 | focus sur le panneau des worktrees                                                 |
+| `focus_status`            | `2`                 | focus sur le panneau de statut                                                     |
+| `toggle_mouse`            | `M`                 | relâcher / reprendre la souris (sélection de texte)                                |
+| `command_logs`            | `3`                 | ouvrir l'overlay Command Logs                                                      |
+| `config_panel`            | `4`                 | ouvrir le panneau Settings                                                         |
+| `working_tree`            | `W`                 | ouvrir la liste Working Tree en pleine taille                                      |
+| `commits`                 | `c`                 | ouvrir la liste des commits en plein écran, avec load-more                         |
+| `toggle_sidebar`          | `V`                 | afficher / masquer la sidebar de détails                                           |
+| `toggle_sidebar_mode`     | `S`                 | faire cycler le panneau Details (`commits` ↔ `stashes`)                            |
+| `cycle_sidebar_layout`    | `z`                 | faire cycler le layout (`auto` → côte-à-côte → empilé → auto)                      |
+| `toggle_sidebar_position` | `v`                 | basculer la sidebar gauche ↔ droite                                                |
+| `filter`                  | `/`                 | ouvrir la barre de filtre fuzzy                                                    |
+| `refresh`                 | `f`                 | rafraîchir la liste des worktrees                                                  |
+| `sync`                    | `s`                 | fetch + rebase sur l'upstream (`gwm sync`)                                         |
+| `create`                  | `n`                 | ouvrir l'overlay de nouveau worktree                                               |
+| `toggle_select`           | `Space`             | marquer / démarquer la ligne pour une suppression en lot                           |
+| `collapse_group`          | `Left`              | replier le groupe de dépôt de la ligne sur son worktree principal (mode workspace) |
+| `expand_group`            | `Right`             | déplier le groupe de dépôt de la ligne (mode workspace)                            |
+| `delete`                  | `d`                 | ouvrir l'overlay de confirmation (sur les lignes marquées)                         |
+| `bootstrap`               | `b`                 | ré-exécuter le bootstrap sur le worktree sélectionné                               |
+| `delete_branch`           | `D`                 | armer la suppression de branche au remove                                          |
+| `pull`                    | `p`                 | `git pull` sur la branche sélectionnée (async)                                     |
+| `push`                    | `P`                 | `git push` sur la branche sélectionnée (async)                                     |
+| `edit_worktree`           | `e`                 | renommer le worktree / la branche                                                  |
+| `edit_note`               | `N`                 | éditer la note du worktree dans une modale                                         |
+| `exit_to_worktree`        | `E`                 | quitter et imprimer le chemin sélectionné sur stdout                               |
+| `lazygit_pty`             | `l`                 | lazygit dans l'overlay PTY embarqué (`[git_tui]`)                                  |
+| `lazygit_fullscreen`      | `L`                 | lazygit en plein écran                                                             |
+| `review_pty`              | `r`                 | outil de review dans l'overlay PTY (`[review]`)                                    |
+| `review_fullscreen`       | `R`                 | outil de review en plein écran                                                     |
+| `terminal_pty`            | `o`                 | dispatch d'ouverture dans l'overlay PTY (`[tui.open]`)                             |
+| `terminal_fullscreen`     | `O`                 | menu de mode d'ouverture / terminal plein écran                                    |
+| `yank_path`               | `Y`                 | copier le chemin du worktree                                                       |
+| `yank_branch_name`        | `y`                 | copier le nom de la branche                                                        |
+| `yank_worktree_name`      | `w`                 | copier le nom du worktree                                                          |
+| `mux_pane`                | `t`                 | ouvrir le worktree dans un nouveau pane tmux / zellij / herdr                      |
+| `macro_one`               | `h`                 | exécuter `[tui.macro1]`                                                            |
+| `macro_two`               | `H`                 | exécuter `[tui.macro2]`                                                            |
+| `browse_links`            | `B`                 | parcourir les liens issue / PR                                                     |
+| `open_docs`               | `.`                 | ouvrir la doc dans le navigateur                                                   |
+| `link`                    | `i`                 | ouvrir le prompt de lien issue/PR                                                  |
+| `fetch_github`            | `F`                 | récupérer l'état d'issue/PR GitHub                                                 |
+| `help`                    | `?`                 | basculer l'overlay d'aide                                                          |
+| `quit`                    | `q`                 | quitter la TUI                                                                     |
+| `command_palette`         | `:`                 | ouvrir la palette de commandes                                                     |
 
 `Ctrl+C` (quit d'urgence) et les touches contextuelles `Esc` / `Enter` sont des échappatoires codées en dur en dehors du keymap, et elles continuent de fonctionner quel que soit `[tui.keys]`.
 
@@ -1176,6 +1198,7 @@ Expansion en une seule passe : `wip = "ll"` suivi de `ll = "list --format names"
 | `[tui].sidebar_position`         | `right`                                                                                                      |
 | `[tui].layout`                   | `compact`                                                                                                    |
 | `[tui].dim_unfocused`            | `false`                                                                                                      |
+| `[tui].mouse`                    | `true`                                                                                                       |
 | `[tui].status_one_line`          | `true`                                                                                                       |
 | `[tui].note_vim`                 | `true`                                                                                                       |
 | `[tui].mux_open_in`              | `pane`                                                                                                       |
