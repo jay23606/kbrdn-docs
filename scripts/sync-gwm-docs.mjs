@@ -391,8 +391,8 @@ if (!versionPubliee) {
   process.exit(1);
 }
 await mkdir(join(SITE, 'data'), { recursive: true });
-// Écrit au format que prettier produirait : ce fichier est commité par le bot
-// de synchro, et `ci.yml` fait `prettier --check .` sur chaque push.
+// Écrit au format que `bun fmt` produirait : ce fichier est commité par le bot
+// de synchro, et `ci.yml` fait `bun fmt --check` sur chaque push.
 await writeFile(
   join(SITE, 'data/gwm-release.json'),
   `${JSON.stringify({ version: versionPubliee }, null, 2)}\n`,

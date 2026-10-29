@@ -25,6 +25,28 @@ version lives in its own file under [`changelogs/`](changelogs/).
   la traduit au rendu. Un `**gras**` seul en tête du bloc devient le titre de
   l'aside, celui que GFM ne sait pas porter.
 
+### Changed
+
+- Le formatage passe de prettier à `bun fmt`, intégré à Bun 1.4.4, dans les
+  scripts, la CI, le hook pre-commit et le bot `sync-gwm`
+  ([#86](https://github.com/kbrdn1/kbrdn-docs/issues/86)). Il lit le
+  `.prettierrc.json` existant, avec un écart nul sur l'arbre. Sur du Markdown
+  neuf il est un peu plus permissif que prettier : il garde un titre setext et
+  une ligne vide avant une liste imbriquée, que prettier réécrit. Les `.astro`
+  ne sont pas natifs, `bun fmt` les confie au
+  prettier installé avec `prettier-plugin-astro`, qui restent donc en
+  devDeps. oxlint reste aussi : `bun lint` intégré n'existe pas encore en
+  version stable.
+- Bun 1.4.4 partout : `packageManager`, les quatre `setup-bun`, et le
+  devShell Nix, qui surcharge le bun de nixpkgs (encore en 1.4.2, sans
+  `bun fmt`) en attendant NixOS/nixpkgs#574334. `flake.lock` est désormais
+  versionné : la révision nixpkgs fait partie du gate de format.
+- Light theme's background grid and diagonal stripes are visible again. A
+  pattern reads against its own ground, not in the abstract: #e8e8e8 on the
+  #ecebe8 shell gave 1.03:1 where dark posts 1.26:1, eight times less. #d8d8d8
+  restores the ratio the dark theme has
+  ([#78](https://github.com/kbrdn1/kbrdn-docs/issues/78)).
+
 ### Fixed
 
 - Accessibility pass on the whole UI surface written in this repo, against
@@ -106,14 +128,6 @@ version lives in its own file under [`changelogs/`](changelogs/).
 - Footer copyright line reads "Built with Astro and Starlight" again. Astro
   glues text nodes to the element that follows them, and this paragraph lacked
   the explicit `{' '}` the one above it already used
-  ([#78](https://github.com/kbrdn1/kbrdn-docs/issues/78)).
-
-### Changed
-
-- Light theme's background grid and diagonal stripes are visible again. A
-  pattern reads against its own ground, not in the abstract: #e8e8e8 on the
-  #ecebe8 shell gave 1.03:1 where dark posts 1.26:1, eight times less. #d8d8d8
-  restores the ratio the dark theme has
   ([#78](https://github.com/kbrdn1/kbrdn-docs/issues/78)).
 
 ## Past releases

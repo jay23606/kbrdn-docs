@@ -36,7 +36,7 @@ kbrdn-docs/
 
 ### Prerequisites
 
-- [Bun](https://bun.sh) ≥ 1.3 (the only supported toolchain).
+- [Bun](https://bun.sh) ≥ 1.4.4 (the only supported toolchain; `bun fmt` ships in 1.4.4).
 - Optional: Nix — `nix develop` drops you in a shell with bun + git (+ curl, jq). No
   node: every script goes through `bun run`.
 
@@ -49,8 +49,8 @@ bun run build               # build every site (static)
 bun run check               # lint + format check + astro check
 bun run lint                # oxlint
 bun run lint:fix            # oxlint --fix
-bun run format              # prettier --write
-bun run format:check        # prettier --check
+bun run format              # bun fmt
+bun run format:check        # bun fmt --check
 bun --filter='@kbrdn/docs-gwm' run preview   # preview a built site
 ```
 
@@ -102,7 +102,7 @@ installed automatically — enable it with:
 git config core.hooksPath .githooks
 ```
 
-It runs prettier + oxlint + astro check on **staged** files only, and
+It runs `bun fmt` + oxlint + astro check on **staged** files only, and
 short-circuits in O(1) when nothing relevant is staged. Bypass once with
 `git commit --no-verify`.
 
