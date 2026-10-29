@@ -10,7 +10,7 @@
   "image": "docs/_assets/site.png",
   "imageLight": "docs/_assets/site-light.png",
   "imagePosition": "0 0",
-  "thumbSize": [600, 302],
+  "thumbSize": [600, 234],
   "facts": [
     { "icon": "tag", "label": "Version", "value": "v1.1.0", "ok": true },
     { "icon": "globe", "label": "Live", "value": "gwm.kbrdn.dev" },
