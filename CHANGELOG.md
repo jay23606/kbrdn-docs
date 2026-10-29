@@ -41,6 +41,11 @@ version lives in its own file under [`changelogs/`](changelogs/).
   devShell Nix, qui surcharge le bun de nixpkgs (encore en 1.4.2, sans
   `bun fmt`) en attendant NixOS/nixpkgs#574334. `flake.lock` est désormais
   versionné : la révision nixpkgs fait partie du gate de format.
+- Dependabot surveille les dépendances en écosystème `bun` au lieu de `npm`
+  ([#91](https://github.com/kbrdn1/kbrdn-docs/issues/91)). `npm_and_yarn`
+  refuse un dépôt qui n'a qu'un `bun.lock` et ne poussait que les
+  `package.json` : chaque PR de montée cassait sur `bun install
+  --frozen-lockfile` et demandait un commit de lock à la main.
 
 ### Fixed
 
