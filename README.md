@@ -1,3 +1,11 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/_assets/promo.png">
+    <source media="(prefers-color-scheme: light)" srcset="docs/_assets/promo-light.png">
+    <img alt="kbrdn-docs: one Starlight site per product, every page written next to its code" src="docs/_assets/promo.png" width="100%">
+  </picture>
+</p>
+
 # kbrdn-docs
 
 [![ci](https://github.com/kbrdn1/kbrdn-docs/actions/workflows/ci.yml/badge.svg)](https://github.com/kbrdn1/kbrdn-docs/actions/workflows/ci.yml)
