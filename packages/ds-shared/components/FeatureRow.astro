@@ -12,10 +12,14 @@ const { n, title } = Astro.props;
 ---
 
 <div class="kbrdn-feature">
-  <span class="kbrdn-feature__n" aria-hidden="true">{n}</span>
+  <span class="kbrdn-feature__n" aria-hidden="true">
+    {n}
+  </span>
   <div class="kbrdn-feature__body">
     <h3 class="kbrdn-feature__title">{title}</h3>
-    <div class="kbrdn-feature__text"><slot /></div>
+    <div class="kbrdn-feature__text">
+      <slot />
+    </div>
   </div>
 </div>
 
