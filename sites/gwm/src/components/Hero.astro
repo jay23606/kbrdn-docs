@@ -107,36 +107,40 @@ const rows = BRANCHES.map((b, i) => {
       </div>
 
       <h1 id={PAGE_TITLE_ID} data-page-title class="kbrdn-hero__title">
-        {
-          /* Le mot « gwm » est juste à côté : la marque est décorative ici.
+        {/* Le mot « gwm » est juste à côté : la marque est décorative ici.
             `light:sl-hidden` / `dark:sl-hidden` sont les utilitaires de bascule
-            de Starlight, ceux qu'il emploie lui-même pour le logo de la barre. */
-        }
+            de Starlight, ceux qu'il emploie lui-même pour le logo de la barre. */}
         <span class="kbrdn-hero__logo" aria-hidden="true">
           <LogoDark class="light:sl-hidden" />
           <LogoLight class="dark:sl-hidden" />
         </span>
         <span class="kbrdn-hero__word">
-          <span set:html={title} /><span class="kbrdn-hero__cursor" aria-hidden="true">_</span>
+          <span set:html={title} />
+          <span class="kbrdn-hero__cursor" aria-hidden="true">
+            _
+          </span>
         </span>
       </h1>
 
       {tagline && <p class="kbrdn-hero__tagline" set:html={tagline} />}
 
       <ul class="kbrdn-hero__chips">
-        {CHIPS.map((c) => <li>{c}</li>)}
+        {CHIPS.map((c) => (
+          <li>{c}</li>
+        ))}
       </ul>
 
       <div class="kbrdn-hero__cmd">
-        {
-          /* `overflow-x: auto` : sous ~340 px la ligne défile, et une zone qui
+        {/* `overflow-x: auto` : sous ~340 px la ligne défile, et une zone qui
             défile doit pouvoir être atteinte au clavier — sinon son contenu
             caché est hors de portée sans souris (WCAG 2.1.1). Le `tabindex`
-            la rend focusable, le `role`+`aria-label` la nomment. */
-        }
-        <code tabindex="0" role="group" aria-label={t.command}
-          ><span class="kbrdn-hero__prompt" aria-hidden="true">$</span>{INSTALL}</code
-        >
+            la rend focusable, le `role`+`aria-label` la nomment. */}
+        <code tabindex="0" role="group" aria-label={t.command}>
+          <span class="kbrdn-hero__prompt" aria-hidden="true">
+            $
+          </span>
+          {INSTALL}
+        </code>
         <button
           type="button"
           data-copy={INSTALL}
@@ -144,26 +148,25 @@ const rows = BRANCHES.map((b, i) => {
           data-copied-message={t.copiedMessage}
           data-failed-message={t.failedMessage}
         >
-          <span data-copy-label>{t.copy}</span><span class="sr-only">{t.what}</span>
+          <span data-copy-label>{t.copy}</span>
+          <span class="sr-only">{t.what}</span>
         </button>
         {/* Hors du bouton : dedans, il ferait partie de son nom accessible. */}
         <span class="sr-only" role="status" data-copy-status></span>
       </div>
 
-      {
-        actions.length > 0 && (
-          <div class="kbrdn-hero__actions">
-            {actions.map(
-              ({ attrs: { class: className, ...attrs } = {}, icon, link: href, text, variant }) => (
-                <LinkButton {href} {variant} icon={icon?.name} class:list={[className]} {...attrs}>
-                  {text}
-                  {icon?.html && <Fragment set:html={icon.html} />}
-                </LinkButton>
-              ),
-            )}
-          </div>
-        )
-      }
+      {actions.length > 0 && (
+        <div class="kbrdn-hero__actions">
+          {actions.map(
+            ({ attrs: { class: className, ...attrs } = {}, icon, link: href, text, variant }) => (
+              <LinkButton {href} {variant} icon={icon?.name} class:list={[className]} {...attrs}>
+                {text}
+                {icon?.html && <Fragment set:html={icon.html} />}
+              </LinkButton>
+            ),
+          )}
+        </div>
+      )}
     </div>
 
     <div class="kbrdn-hero__graph" aria-hidden="true">
@@ -174,8 +177,15 @@ const rows = BRANCHES.map((b, i) => {
           x2={TRUNK_X}
           y2={BOTTOM}
           class="kbrdn-hero__trunk"
-          stroke-width="2"></line>
-        <circle cx={TRUNK_X} cy={TOP} r="5" fill="none" class="kbrdn-hero__trunk" stroke-width="2"
+          stroke-width="2"
+        ></line>
+        <circle
+          cx={TRUNK_X}
+          cy={TOP}
+          r="5"
+          fill="none"
+          class="kbrdn-hero__trunk"
+          stroke-width="2"
         ></circle>
         <circle
           cx={TRUNK_X}
@@ -183,33 +193,34 @@ const rows = BRANCHES.map((b, i) => {
           r="5"
           fill="none"
           class="kbrdn-hero__trunk"
-          stroke-width="2"></circle>
-        <text x={TRUNK_X + 14} y={TOP + 6} class="kbrdn-hero__trunk-label">main</text>
+          stroke-width="2"
+        ></circle>
+        <text x={TRUNK_X + 14} y={TOP + 6} class="kbrdn-hero__trunk-label">
+          main
+        </text>
 
-        {
-          rows.map((b) => (
-            <g>
-              <path
-                d={`M ${TRUNK_X} ${b.from} C 64 ${b.from}, 78 ${b.to}, ${END_X} ${b.to}`}
-                fill="none"
-                stroke={b.color}
-                stroke-width="2"
-              />
-              <circle cx={TRUNK_X} cy={b.from} r="3.5" fill={b.color} />
-              <circle
-                cx={END_X}
-                cy={b.to}
-                r="6"
-                fill={b.current ? b.color : 'var(--sl-color-bg)'}
-                stroke={b.color}
-                stroke-width="2"
-              />
-              <text x={LABEL_X} y={b.to + 6} fill={b.color} class="kbrdn-hero__branch-label">
-                {b.label}
-              </text>
-            </g>
-          ))
-        }
+        {rows.map((b) => (
+          <g>
+            <path
+              d={`M ${TRUNK_X} ${b.from} C 64 ${b.from}, 78 ${b.to}, ${END_X} ${b.to}`}
+              fill="none"
+              stroke={b.color}
+              stroke-width="2"
+            />
+            <circle cx={TRUNK_X} cy={b.from} r="3.5" fill={b.color} />
+            <circle
+              cx={END_X}
+              cy={b.to}
+              r="6"
+              fill={b.current ? b.color : 'var(--sl-color-bg)'}
+              stroke={b.color}
+              stroke-width="2"
+            />
+            <text x={LABEL_X} y={b.to + 6} fill={b.color} class="kbrdn-hero__branch-label">
+              {b.label}
+            </text>
+          </g>
+        ))}
       </svg>
     </div>
   </div>

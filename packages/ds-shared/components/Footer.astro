@@ -116,30 +116,28 @@ const hasPagination = Boolean(prev || next);
 
       <!-- Centre : sous-grille 2×2 de listes de liens. -->
       <div class="kbrdn-footer__cols">
-        {
-          columns.map((col, i) => (
-            <div class="kbrdn-footer__col">
-              <p class="kbrdn-footer__title" id={`footer-${columnIds[i]}`}>
-                {col.title}
-              </p>
-              <nav aria-labelledby={`footer-${columnIds[i]}`}>
-                <ul>
-                  {col.links.map((l) => (
-                    <li>
-                      <a
-                        href={l.href}
-                        target={l.external ? '_blank' : undefined}
-                        rel={l.external ? 'noopener noreferrer' : undefined}
-                      >
-                        {l.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-          ))
-        }
+        {columns.map((col, i) => (
+          <div class="kbrdn-footer__col">
+            <p class="kbrdn-footer__title" id={`footer-${columnIds[i]}`}>
+              {col.title}
+            </p>
+            <nav aria-labelledby={`footer-${columnIds[i]}`}>
+              <ul>
+                {col.links.map((l) => (
+                  <li>
+                    <a
+                      href={l.href}
+                      target={l.external ? '_blank' : undefined}
+                      rel={l.external ? 'noopener noreferrer' : undefined}
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        ))}
       </div>
 
       <!-- Droite : blocs empilés, comme Localisation / Disponibilité / Email. -->
@@ -157,12 +155,16 @@ const hasPagination = Boolean(prev || next);
             class="kbrdn-footer__value"
             href="https://github.com/kbrdn1/gwm-cli#license"
             target="_blank"
-            rel="noopener noreferrer">MIT OR Apache-2.0</a
+            rel="noopener noreferrer"
           >
+            MIT OR Apache-2.0
+          </a>
         </div>
         <div class="kbrdn-footer__block">
           <p class="kbrdn-footer__title">Contact</p>
-          <a class="kbrdn-footer__value" href="mailto:hello@kbrdn.dev">hello@kbrdn.dev</a>
+          <a class="kbrdn-footer__value" href="mailto:hello@kbrdn.dev">
+            hello@kbrdn.dev
+          </a>
         </div>
       </div>
     </div>
@@ -170,17 +172,21 @@ const hasPagination = Boolean(prev || next);
     <div class="kbrdn-footer__bottom">
       <p>
         © {year}{' '}
-        <a href="https://kbrdn.dev" target="_blank" rel="noopener noreferrer">Kylian Bardini</a>. {
-          t.rights
-        }
+        <a href="https://kbrdn.dev" target="_blank" rel="noopener noreferrer">
+          Kylian Bardini
+        </a>
+        . {t.rights}
       </p>
       <p>
         {t.builtWith}{' '}
-        <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>{' '}
+        <a href="https://astro.build" target="_blank" rel="noopener noreferrer">
+          Astro
+        </a>{' '}
         {t.and}{' '}
-        <a href="https://starlight.astro.build" target="_blank" rel="noopener noreferrer"
-          >Starlight</a
-        >.
+        <a href="https://starlight.astro.build" target="_blank" rel="noopener noreferrer">
+          Starlight
+        </a>
+        .
       </p>
     </div>
   </div>

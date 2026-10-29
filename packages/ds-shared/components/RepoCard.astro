@@ -50,7 +50,8 @@ const href = `https://github.com/${owner}/${repo}`;
         ></path>
       </svg>
       <span class="kbrdn-repo__name">
-        <span class="kbrdn-repo__owner">{owner}/</span>{repo}
+        <span class="kbrdn-repo__owner">{owner}/</span>
+        {repo}
       </span>
       {license && <span class="kbrdn-repo__license">{license}</span>}
     </span>
@@ -58,14 +59,12 @@ const href = `https://github.com/${owner}/${repo}`;
     {description && <span class="kbrdn-repo__desc">{description}</span>}
 
     <span class="kbrdn-repo__foot">
-      {
-        language && (
-          <span class="kbrdn-repo__lang">
-            <span class="kbrdn-repo__dot" style={`--dot: ${languageColor}`} aria-hidden="true" />
-            {language}
-          </span>
-        )
-      }
+      {language && (
+        <span class="kbrdn-repo__lang">
+          <span class="kbrdn-repo__dot" style={`--dot: ${languageColor}`} aria-hidden="true" />
+          {language}
+        </span>
+      )}
       <span class="kbrdn-repo__cta">
         {cta}
         <svg class="kbrdn-repo__arrow" viewBox="0 0 16 16" aria-hidden="true">
@@ -73,7 +72,8 @@ const href = `https://github.com/${owner}/${repo}`;
             fill="none"
             stroke="currentColor"
             stroke-width="1.6"
-            d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"></path>
+            d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"
+          ></path>
         </svg>
       </span>
     </span>

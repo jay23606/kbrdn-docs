@@ -33,33 +33,29 @@ const isAnimated = src.format === 'gif';
 ---
 
 <figure class="gwm-capture">
-  {
-    cmd && (
-      <div class="gwm-capture__bar">
-        <span class="gwm-capture__prompt" aria-hidden="true">
-          $
-        </span>
-        <span class="gwm-capture__cmd">{cmd}</span>
-        {tag && <span class="gwm-capture__tag">{tag}</span>}
-      </div>
-    )
-  }
+  {cmd && (
+    <div class="gwm-capture__bar">
+      <span class="gwm-capture__prompt" aria-hidden="true">
+        $
+      </span>
+      <span class="gwm-capture__cmd">{cmd}</span>
+      {tag && <span class="gwm-capture__tag">{tag}</span>}
+    </div>
+  )}
 
   <div class="gwm-capture__frame">
-    {
-      isAnimated ? (
-        <img src={src.src} width={src.width} height={src.height} {alt} {loading} decoding="async" />
-      ) : (
-        <Image
-          {src}
-          {alt}
-          {loading}
-          decoding="async"
-          widths={[640, 960, 1280, src.width]}
-          sizes="(min-width: 50rem) 62rem, 100vw"
-        />
-      )
-    }
+    {isAnimated ? (
+      <img src={src.src} width={src.width} height={src.height} {alt} {loading} decoding="async" />
+    ) : (
+      <Image
+        {src}
+        {alt}
+        {loading}
+        decoding="async"
+        widths={[640, 960, 1280, src.width]}
+        sizes="(min-width: 50rem) 62rem, 100vw"
+      />
+    )}
   </div>
 
   {caption && <figcaption class="gwm-capture__caption">{caption}</figcaption>}

@@ -100,33 +100,29 @@ const stats = [
 ];
 ---
 
-{
-  /* `not-content` sur l'ENVELOPPE, pas sur les liens : la règle de prose de
+{/* `not-content` sur l'ENVELOPPE, pas sur les liens : la règle de prose de
     Starlight s'écrit `a:not(:where(.not-content *))`, elle exclut les
     descendants et pas le porteur de la classe. Sans elle, les chiffres et les
-    libellés sortent en orange souligné. */
-}
+    libellés sortent en orange souligné. */}
 <div class="kbrdn-stats not-content">
   <div class="kbrdn-stats__inner">
-    {
-      stats.map((s) => (
-        <a class="kbrdn-stats__cell" href={s.href}>
-          <span class="kbrdn-stats__value">{s.value}</span>
-          <span class="kbrdn-stats__label">
-            <svg class="kbrdn-stats__icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d={s.icon}
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="square"
-              />
-            </svg>
-            {s.label}
-          </span>
-        </a>
-      ))
-    }
+    {stats.map((s) => (
+      <a class="kbrdn-stats__cell" href={s.href}>
+        <span class="kbrdn-stats__value">{s.value}</span>
+        <span class="kbrdn-stats__label">
+          <svg class="kbrdn-stats__icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d={s.icon}
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="square"
+            />
+          </svg>
+          {s.label}
+        </span>
+      </a>
+    ))}
   </div>
 </div>
 
