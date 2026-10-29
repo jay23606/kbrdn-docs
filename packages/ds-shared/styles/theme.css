@@ -339,24 +339,16 @@ a.action,
   }
 
   /* Volet de navigation en panneau plein écran, caché tant que le menu n'est
-     pas ouvert. */
+     pas ouvert : c'est un popover jusqu'à 110rem (MobileMenuToggle.astro). */
   .sidebar-pane {
-    --sl-sidebar-visibility: hidden;
     inset-inline-start: 0;
     width: 100%;
     background-color: var(--sl-color-black);
     border-inline-end: none;
   }
-  /* Il FAUT rejouer aussi la règle d'ouverture. Celle de Starlight est plus
-     spécifique mais vit dans `@layer starlight.core`, et une règle hors couche
-     l'emporte quelle que soit la spécificité : la ligne ci-dessus gagnait donc
-     même menu ouvert, et le hamburger ne révélait rien. */
-  [aria-expanded='true'] ~ .sidebar-pane {
-    --sl-sidebar-visibility: visible;
-  }
 
   /* Bouton hamburger : Starlight le masque au-dessus de 50rem, on le rend. */
-  starlight-menu-button button {
+  .sl-menu-button {
     display: flex;
   }
 
@@ -503,14 +495,14 @@ header.header .right-group {
    carrée et plate de la barre, calée dans la coquille. Les règles de Starlight
    (y compris son inversion en thème clair) vivent dans `@layer starlight.core`,
    donc celles-ci passent devant sans avoir à surenchérir en spécificité. */
-starlight-menu-button button {
+.sl-menu-button {
   inset-inline-end: calc(var(--kbrdn-gutter) + 0.75rem);
   border-radius: 0;
   box-shadow: none;
   background-color: transparent;
   color: var(--sl-color-white);
 }
-starlight-menu-button button:hover {
+.sl-menu-button:hover {
   background-color: color-mix(in srgb, var(--sl-color-gray-5) 30%, transparent);
 }
 /* Et la place qu'il occupe est réservée dans la barre, sinon il se pose sur la
@@ -835,6 +827,12 @@ starlight-lang-select select {
 .sidebar-pane {
   display: flex;
   overflow: hidden;
+}
+/* Le `display` ci-dessus écraserait le `display: none` que le navigateur donne
+   à un popover fermé — et Starlight force `block` au-dessus de 50rem. Fermé, le
+   volet couvrait donc la page à toutes les largeurs où il est un popover. */
+.sidebar-pane[popover]:not(:popover-open) {
+  display: none;
 }
 .sidebar-content {
   margin: 1rem;

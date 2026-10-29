@@ -131,6 +131,7 @@ export default defineConfig({
         Footer: '@kbrdn/ds-shared/components/Footer.astro',
         TableOfContents: '@kbrdn/ds-shared/components/TableOfContents.astro',
         MobileTableOfContents: '@kbrdn/ds-shared/components/MobileTableOfContents.astro',
+        MobileMenuToggle: '@kbrdn/ds-shared/components/MobileMenuToggle.astro',
         Hero: './src/components/Hero.astro',
       },
 
