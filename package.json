@@ -19,8 +19,8 @@
     "check": "bun run lint && bun run format:check && bun test && bun --filter='*' run check",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format": "bun fmt",
+    "format:check": "bun fmt --check"
   },
   "devDependencies": {
     "oxlint": "^1.68.0",
