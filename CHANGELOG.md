@@ -41,11 +41,6 @@ version lives in its own file under [`changelogs/`](changelogs/).
   devShell Nix, qui surcharge le bun de nixpkgs (encore en 1.4.2, sans
   `bun fmt`) en attendant NixOS/nixpkgs#574334. `flake.lock` est désormais
   versionné : la révision nixpkgs fait partie du gate de format.
-- Light theme's background grid and diagonal stripes are visible again. A
-  pattern reads against its own ground, not in the abstract: #e8e8e8 on the
-  #ecebe8 shell gave 1.03:1 where dark posts 1.26:1, eight times less. #d8d8d8
-  restores the ratio the dark theme has
-  ([#78](https://github.com/kbrdn1/kbrdn-docs/issues/78)).
 
 ### Fixed
 
