@@ -46,7 +46,7 @@ pipeline ; Cloudflare Pages est le runtime.
 | Déploiement    | **Cloudflare Pages**           | Gratuit généreux, preview par branche, CDN global           |
 | Versioning     | **Par branche**                | Plus robuste que les plugins file-based (retour d'Arcjet)   |
 | Lint           | **oxlint**                     | Imposé ; rapide                                             |
-| Format         | **prettier** (+ plugin astro)  | Standard, plugin astro mûr                                  |
+| Format         | **bun fmt** (+ plugin astro)   | Sortie de prettier, intégré à Bun ≥ 1.4.4                   |
 | Type/contenu   | **astro check**                | Couvre `.astro` que oxlint ne parse pas                     |
 | Dev env        | **flake.nix** (bun, git)       | Shell reproductible                                         |
 
@@ -167,7 +167,7 @@ pipeline ; Cloudflare Pages est le runtime.
 
 ## 8. CI/CD & déploiement
 
-- **`ci.yml`** (push/PR sur `main`/`dev`) : `lint` (oxlint + prettier) et
+- **`ci.yml`** (push/PR sur `main`/`dev`) : `lint` (oxlint + bun fmt) et
   `build` (astro check + build tous sites + upload artefact). Bun via
   `oven-sh/setup-bun`, `--frozen-lockfile`.
 - **`deploy.yml`** : sur `main` (paths sites/shared), build + `wrangler pages
@@ -181,9 +181,9 @@ deploy`. Gardé par `vars.DEPLOY_ENABLED == 'true'` pour ne pas échouer avant
 
 - Gates : `bun run lint`, `bun run format:check`, `bun --filter='*' run check`,
   `bun run build`.
-- Hook pre-commit opt-in (`.githooks/pre-commit`) : prettier + oxlint + astro
+- Hook pre-commit opt-in (`.githooks/pre-commit`) : bun fmt + oxlint + astro
   check sur fichiers stagés, short-circuit O(1).
-- `.astro` : typé par `astro check`, formaté par prettier-plugin-astro, hors
+- `.astro` : typé par `astro check`, formaté par prettier-plugin-astro (via `bun fmt`), hors
   périmètre oxlint.
 
 ## 10. Risques & arbitrages

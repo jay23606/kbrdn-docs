@@ -12,7 +12,7 @@ contribution made via an AI assistant in this repository.
 2. **No change lands red.** Before declaring a task done, all four gates pass
    locally:
    - `bun run lint` (oxlint)
-   - `bun run format:check` (prettier)
+   - `bun run format:check` (`bun fmt --check`)
    - `bun --filter='*' run check` (astro check — type & content)
    - `bun run build` (every site builds static, zero broken refs)
 
@@ -29,9 +29,9 @@ deployed to Cloudflare Pages. Versioning is **by branch** (see below).
 kbrdn-docs/
 ├── package.json            # Bun workspaces root (private)
 ├── bunfig.toml
-├── flake.nix               # Nix dev shell (bun, node, git)
+├── flake.nix / flake.lock  # Nix dev shell (bun 1.4.4, git)
 ├── .oxlintrc.json          # oxlint config
-├── .prettierrc.json
+├── .prettierrc.json        # formatting options, read by `bun fmt`
 ├── packages/
 │   └── ds-shared/          # @kbrdn/ds-shared — shared theme + overrides + MDX components
 └── sites/
@@ -59,13 +59,19 @@ kbrdn-docs/
   [CONTRIBUTING.md](CONTRIBUTING.md#commits).
 - **Merge strategy**: regular merge commit, never squash, never delete the
   source branch. The atomic history is the artefact.
-- **Indentation**: 2 spaces. Prettier is the source of truth; `bun run format`
-  before committing, CI enforces `bun run format:check`.
+- **Indentation**: 2 spaces. `bun fmt` (built into Bun ≥ 1.4.4, Prettier's
+  output) is the source of truth; `bun run format` before committing, CI
+  enforces `bun run format:check`. It reads `.prettierrc.json`, and that file
+  must stay: its `prettier-plugin-astro` entry is what makes `bun fmt` hand
+  the `.astro` files to the installed prettier, since they are not formatted
+  natively. So `prettier` and `prettier-plugin-astro` stay in devDeps, and the
+  options do not move to a `[fmt]` section of `bunfig.toml`.
 - **Linter**: oxlint (`bun run lint`) must pass. `.astro` files are checked by
-  `astro check`, not oxlint.
+  `astro check`, not oxlint. Stable Bun has no built-in linter yet: `bun lint`
+  only runs the `lint` script.
 - **No leftover `console.log`** in shipped component code.
 - **Pre-commit hook** (opt-in): `git config core.hooksPath .githooks` wires
-  prettier + oxlint + astro check on staged files. Bypass once with
+  `bun fmt` + oxlint + astro check on staged files. Bypass once with
   `git commit --no-verify`.
 
 ## Where to look for the rest

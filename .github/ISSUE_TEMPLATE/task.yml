@@ -39,7 +39,7 @@ body:
     attributes:
       label: Critères d'acceptation
       placeholder: |
-        - [ ] bun run check passe (oxlint + prettier + astro check)
+        - [ ] bun run check passe (oxlint + bun fmt + astro check)
         - [ ] bun run build passe
         - [ ] CHANGELOG mis à jour sous [Unreleased]
     validations:
