@@ -127,6 +127,11 @@ version lives in its own file under [`changelogs/`](changelogs/).
   glues text nodes to the element that follows them, and this paragraph lacked
   the explicit `{' '}` the one above it already used
   ([#78](https://github.com/kbrdn1/kbrdn-docs/issues/78)).
+- Light theme's background grid and diagonal stripes are visible again. A
+  pattern reads against its own ground, not in the abstract: #e8e8e8 on the
+  #ecebe8 shell gave 1.03:1 where dark posts 1.26:1, eight times less. #d8d8d8
+  restores the ratio the dark theme has
+  ([#89](https://github.com/kbrdn1/kbrdn-docs/issues/89)).
 
 ## Past releases
 
