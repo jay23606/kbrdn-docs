@@ -1,6 +1,10 @@
 version: 2
 updates:
-  - package-ecosystem: 'npm'
+  # `bun`, pas `npm` : l'écosystème `npm_and_yarn` refuse un dépôt qui n'a
+  # qu'un `bun.lock` (« could not run Bun … configuration error ») et ne
+  # poussait que les `package.json`, si bien que chaque PR cassait sur
+  # `bun install --frozen-lockfile` (#91).
+  - package-ecosystem: 'bun'
     # `/` seul : l'entrée racine résout déjà les workspaces bun, donc lister
     # aussi les packages sortait chaque bump en double (cf. #36 / #37).
     directory: '/'
