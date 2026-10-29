@@ -1,0 +1,31 @@
+{
+  "eyebrow": "Documentation monorepo",
+  "version": "v1.1.0",
+  "wordmark": "kbrdn-docs",
+  "tagline": "One Starlight site per product.<br>Every page written next to its code.",
+  "buttons": [
+    { "label": "GitHub", "icon": "share" },
+    { "label": "gwm.kbrdn.dev", "icon": "visit", "filled": true }
+  ],
+  "image": "docs/_assets/site.png",
+  "imageLight": "docs/_assets/site-light.png",
+  "imagePosition": "0 0",
+  "thumbSize": [600, 234],
+  "facts": [
+    { "icon": "tag", "label": "Version", "value": "v1.1.0", "ok": true },
+    { "icon": "globe", "label": "Live", "value": "gwm.kbrdn.dev" },
+    { "icon": "code", "label": "Stack", "value": "Astro Starlight · Bun" },
+    { "icon": "scale", "label": "License", "value": "MIT" },
+    { "icon": "user", "label": "Author", "value": "kbrdn1", "person": true }
+  ],
+  "chips": [
+    "Synced from gwm-cli",
+    "Shared design system",
+    "Cloudflare Pages",
+    "Versions by branch",
+    "74 tests"
+  ],
+  "installLabel": "Run locally",
+  "install": "bun install && bun run dev",
+  "footer": "github.com/kbrdn1/kbrdn-docs · TypeScript · MIT"
+}

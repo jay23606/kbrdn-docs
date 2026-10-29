@@ -1,0 +1,26 @@
+---
+// Le bouton de Starlight, enveloppé pour une seule raison : le menu plein écran
+// de theme.css vit jusqu'à 110rem, quand Starlight retire l'attribut `popover`
+// du volet dès 50em pour l'afficher en colonne. Sans popover, le hamburger n'a
+// plus rien à ouvrir. Le script le lui rend dans cette bande.
+import Default from '@astrojs/starlight/components/MobileMenuToggle.astro';
+---
+
+<Default />
+
+<script>
+  // Après la définition de `sl-sidebar-pane` : c'est son constructeur qui pose
+  // l'attribut et branche son propre écouteur de `change`. Les nôtres, inscrits
+  // après, passent donc après lui à chaque bascule de largeur.
+  customElements.whenDefined('sl-sidebar-pane').then(() => {
+    const pane = document.getElementById('starlight__sidebar');
+    if (!pane) return;
+    const band = matchMedia('(max-width: 109.9375rem)');
+    const sync = () => {
+      pane.popover = band.matches ? 'auto' : null;
+    };
+    sync();
+    band.addEventListener('change', sync);
+    matchMedia('(min-width: 50em)').addEventListener('change', sync);
+  });
+</script>

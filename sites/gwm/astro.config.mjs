@@ -2,8 +2,10 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import sitemap from '@astrojs/sitemap';
+import { satteri } from '@astrojs/markdown-satteri';
 import { claudeDark, claudeLight } from '@kbrdn/ds-shared/ec-theme.mjs';
 import { createLastmodLookup } from './src/lib/sitemap-lastmod.mjs';
+import { gfmAlerts } from './src/lib/mdast-gfm-alerts.mjs';
 
 // Les locales servies sous un préfixe de chemin. L'anglais n'y figure pas : il
 // est à la racine, et c'est ce qui en fait la cible du `x-default` ci-dessous.
@@ -20,6 +22,17 @@ export default defineConfig({
   // elle doit être celle qu'on veut voir indexée. La pages.dev continue d'être
   // servie en parallèle, elle ne se retire pas.
   site: 'https://gwm.kbrdn.dev',
+
+  // Le processeur par défaut d'Astro 7, redéclaré pour la seule raison d'y
+  // glisser notre passe : les alerts GFM de la doc amont (`> [!WARNING]`), que
+  // ni Sätteri ni Starlight ne connaissent, deviennent des directives que le
+  // plugin d'asides de Starlight rend en callouts (src/lib/mdast-gfm-alerts.mjs).
+  // Elle est déclarée ici, et pas en `markdown.remarkPlugins`, parce que cette
+  // clé est dépréciée depuis Astro 7 et ferait basculer tout le site sur
+  // `unified()` — un autre moteur markdown, pour un plugin.
+  markdown: {
+    processor: satteri({ mdastPlugins: [gfmAlerts] }),
+  },
 
   integrations: [
     // Le sitemap est normalement posé par Starlight, qui s'efface dès qu'une
@@ -74,7 +87,10 @@ export default defineConfig({
       logo: {
         light: './src/assets/gwm-logo-light.svg',
         dark: './src/assets/gwm-logo-dark.svg',
-        alt: 'gwm',
+        // Le `SiteTitle` écrit « gwm » juste à côté : un `alt` qui répète le
+        // nom fait restituer la marque « gwm gwm ». La marque est décorative
+        // ici, comme toutes les autres images d'habillage du dépôt.
+        alt: '',
       },
       social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/kbrdn1/gwm-cli' }],
 
@@ -118,6 +134,7 @@ export default defineConfig({
         Footer: '@kbrdn/ds-shared/components/Footer.astro',
         TableOfContents: '@kbrdn/ds-shared/components/TableOfContents.astro',
         MobileTableOfContents: '@kbrdn/ds-shared/components/MobileTableOfContents.astro',
+        MobileMenuToggle: '@kbrdn/ds-shared/components/MobileMenuToggle.astro',
         Hero: './src/components/Hero.astro',
       },
 

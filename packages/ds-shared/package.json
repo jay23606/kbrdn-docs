@@ -10,6 +10,7 @@
     "./components/Footer.astro": "./components/Footer.astro",
     "./components/TableOfContents.astro": "./components/TableOfContents.astro",
     "./components/MobileTableOfContents.astro": "./components/MobileTableOfContents.astro",
+    "./components/MobileMenuToggle.astro": "./components/MobileMenuToggle.astro",
     "./components/RepoCard.astro": "./components/RepoCard.astro",
     "./components/Header.astro": "./components/Header.astro",
     "./components/ImageZoom.astro": "./components/ImageZoom.astro",
@@ -21,6 +22,6 @@
     "astro": ">=6.0.0"
   },
   "devDependencies": {
-    "@astrojs/starlight": "^0.41.6"
+    "@astrojs/starlight": "^0.42.0"
   }
 }

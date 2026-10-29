@@ -47,21 +47,19 @@ const localised = (href: string) =>
     {version && <span class="kbrdn-nav__version">v{version}</span>}
   </div>
 
-  {
-    tabs.length > 0 && (
-      <nav class="kbrdn-nav__tabs" aria-label="Sections">
-        {tabs.map((t) => (
-          <a
-            href={localised(t.href)}
-            class:list={['kbrdn-nav__tab', isActive(t.href) && 'is-active']}
-            aria-current={isActive(t.href) ? 'page' : undefined}
-          >
-            {t.label}
-          </a>
-        ))}
-      </nav>
-    )
-  }
+  {tabs.length > 0 && (
+    <nav class="kbrdn-nav__tabs" aria-label="Sections">
+      {tabs.map((t) => (
+        <a
+          href={localised(t.href)}
+          class:list={['kbrdn-nav__tab', isActive(t.href) && 'is-active']}
+          aria-current={isActive(t.href) ? 'page' : undefined}
+        >
+          {t.label}
+        </a>
+      ))}
+    </nav>
+  )}
 
   <div class="kbrdn-nav__search print:hidden">{shouldRenderSearch && <Search />}</div>
 
@@ -69,8 +67,12 @@ const localised = (href: string) =>
     <div class="kbrdn-nav__cell kbrdn-nav__social">
       <SocialIcons />
     </div>
-    <div class="kbrdn-nav__cell"><ThemeSelect /></div>
-    <div class="kbrdn-nav__cell"><LanguageSelect /></div>
+    <div class="kbrdn-nav__cell">
+      <ThemeSelect />
+    </div>
+    <div class="kbrdn-nav__cell">
+      <LanguageSelect />
+    </div>
   </div>
 </div>
 
@@ -112,7 +114,7 @@ const localised = (href: string) =>
     letter-spacing: 0.05em;
     line-height: 1;
     padding: 0.25rem 0.4rem;
-    color: var(--sl-color-accent);
+    color: var(--sl-color-text-accent);
     background-color: color-mix(in srgb, var(--sl-color-accent) 12%, transparent);
     border: 1px solid color-mix(in srgb, var(--sl-color-accent) 40%, transparent);
     white-space: nowrap;
@@ -160,10 +162,19 @@ const localised = (href: string) =>
     background-color: color-mix(in srgb, var(--sl-color-gray-5) 30%, transparent);
   }
 
+  /* Les onglets remplissent EXACTEMENT leur parent, et ce parent est en
+     `overflow: hidden` (le garde-fou ci-dessus) : un anneau peint dehors est
+     intégralement rogné — mesuré à 0 px de marge sur les quatre. Il se peint
+     donc à l'intérieur, avec le décalage que Starlight réserve à ce cas, et le
+     garde-fou reste. */
+  .kbrdn-nav__tab:focus-visible {
+    outline-offset: var(--sl-outline-offset-inside);
+  }
+
   /* Onglet courant : texte orange, fond d'accent très dilué, barre de 2px en
      bas (la classe `nav-tab-active` du portfolio). */
   .kbrdn-nav__tab.is-active {
-    color: var(--sl-color-accent);
+    color: var(--sl-color-text-accent);
     background-color: color-mix(in srgb, var(--sl-color-accent) 5%, transparent);
   }
   .kbrdn-nav__tab.is-active::after {

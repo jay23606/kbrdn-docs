@@ -16,5 +16,6 @@ version lives in its own file under [`changelogs/`](changelogs/).
 
 ## Past releases
 
+- [1.2.0](changelogs/1.2.0.md) — 2026-10-29
 - [1.1.0](changelogs/1.1.0.md) — 2026-08-14
 - [1.0.0](changelogs/1.0.0.md) — 2026-08-13

@@ -1,10 +1,10 @@
 {
   "name": "kbrdn-docs",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "type": "module",
   "description": "Monorepo de documentation multi-produits (Astro Starlight, Bun workspaces).",
-  "packageManager": "bun@1.3.1",
+  "packageManager": "bun@1.4.4",
   "workspaces": [
     "packages/*",
     "sites/*"
@@ -19,13 +19,13 @@
     "check": "bun run lint && bun run format:check && bun test && bun --filter='*' run check",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format": "bun fmt",
+    "format:check": "bun fmt --check"
   },
   "devDependencies": {
     "oxlint": "^1.68.0",
     "prettier": "^3.8.3",
-    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-astro": "^1.0.0",
     "typescript": "^6.0.3"
   }
 }

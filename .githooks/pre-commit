@@ -6,7 +6,7 @@
 #
 # Gates run only when relevant files are staged (O(1) short-circuit otherwise),
 # so contributors who touch unrelated files pay nothing per commit:
-#   1. prettier --check on staged, supported files
+#   1. bun fmt --check on staged, supported files
 #   2. oxlint when JS/TS is staged
 #   3. astro check on the sites when site/shared source changed
 set -eu
@@ -17,9 +17,9 @@ staged=$(git diff --cached --name-only --diff-filter=ACMR)
 # 1. Formatting.
 fmt_files=$(printf '%s\n' "$staged" | grep -E '\.(js|mjs|ts|tsx|jsx|astro|json|md|mdx|css|ya?ml)$' || true)
 if [ -n "$fmt_files" ]; then
-  echo "pre-commit: prettier --check (staged)"
+  echo "pre-commit: bun fmt --check (staged)"
   # shellcheck disable=SC2086
-  bunx prettier --check $fmt_files || {
+  bun fmt --check $fmt_files || {
     echo "✗ formatting issues — run 'bun run format' and re-stage." >&2
     exit 1
   }

@@ -15,7 +15,9 @@ const label = Astro.locals.t('tableOfContents.onThisPage');
 <div class="kbrdn-toc">
   <div class="kbrdn-toc__head">
     <span class="kbrdn-toc__label">{label}</span>
-    <span class="kbrdn-toc__pct" data-toc-pct>0%</span>
+    <span class="kbrdn-toc__pct" data-toc-pct>
+      0%
+    </span>
   </div>
   <div class="kbrdn-toc__rail">
     <div class="kbrdn-toc__fill" data-toc-fill></div>
@@ -51,7 +53,7 @@ const label = Astro.locals.t('tableOfContents.onThisPage');
     font-size: 0.7rem;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
-    color: var(--sl-color-accent);
+    color: var(--sl-color-text-accent);
   }
 
   .kbrdn-toc__rail {

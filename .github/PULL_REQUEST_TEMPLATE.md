@@ -29,7 +29,7 @@ Closes #<!-- issue number -->
 ## Quality gates
 
 - [ ] `bun run lint` passes (oxlint)
-- [ ] `bun run format:check` passes (prettier)
+- [ ] `bun run format:check` passes (bun fmt)
 - [ ] `bun --filter='*' run check` passes (astro check)
 - [ ] `bun run build` passes (all sites build green)
 - [ ] No broken internal links / orphan pages
