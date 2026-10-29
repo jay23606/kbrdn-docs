@@ -30,8 +30,10 @@ version lives in its own file under [`changelogs/`](changelogs/).
 - Le formatage passe de prettier à `bun fmt`, intégré à Bun 1.4.4, dans les
   scripts, la CI, le hook pre-commit et le bot `sync-gwm`
   ([#86](https://github.com/kbrdn1/kbrdn-docs/issues/86)). Il lit le
-  `.prettierrc.json` existant et produit la sortie de prettier : écart nul
-  sur l'arbre. Les `.astro` ne sont pas natifs, `bun fmt` les confie au
+  `.prettierrc.json` existant, avec un écart nul sur l'arbre. Sur du Markdown
+  neuf il est un peu plus permissif que prettier : il garde un titre setext et
+  une ligne vide avant une liste imbriquée, que prettier réécrit. Les `.astro`
+  ne sont pas natifs, `bun fmt` les confie au
   prettier installé avec `prettier-plugin-astro`, qui restent donc en
   devDeps. oxlint reste aussi : `bun lint` intégré n'existe pas encore en
   version stable.

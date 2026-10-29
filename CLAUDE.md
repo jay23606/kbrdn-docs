@@ -59,9 +59,12 @@ kbrdn-docs/
   [CONTRIBUTING.md](CONTRIBUTING.md#commits).
 - **Merge strategy**: regular merge commit, never squash, never delete the
   source branch. The atomic history is the artefact.
-- **Indentation**: 2 spaces. `bun fmt` (built into Bun ≥ 1.4.4, Prettier's
-  output) is the source of truth; `bun run format` before committing, CI
-  enforces `bun run format:check`. It reads `.prettierrc.json`, and that file
+- **Indentation**: 2 spaces. `bun fmt` (built into Bun ≥ 1.4.4,
+  Prettier-compatible) is the source of truth; `bun run format` before
+  committing, CI enforces `bun run format:check`. It is not byte-identical to
+  prettier on Markdown: it keeps a setext heading and a blank line before a
+  nested list where prettier rewrites them, so do not mix in `prettier --check`
+  to compare. It reads `.prettierrc.json`, and that file
   must stay: its `prettier-plugin-astro` entry is what makes `bun fmt` hand
   the `.astro` files to the installed prettier, since they are not formatted
   natively. So `prettier` and `prettier-plugin-astro` stay in devDeps, and the

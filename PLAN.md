@@ -46,7 +46,7 @@ pipeline ; Cloudflare Pages est le runtime.
 | Déploiement    | **Cloudflare Pages**           | Gratuit généreux, preview par branche, CDN global           |
 | Versioning     | **Par branche**                | Plus robuste que les plugins file-based (retour d'Arcjet)   |
 | Lint           | **oxlint**                     | Imposé ; rapide                                             |
-| Format         | **bun fmt** (+ plugin astro)   | Sortie de prettier, intégré à Bun ≥ 1.4.4                   |
+| Format         | **bun fmt** (+ plugin astro)   | Compatible prettier, intégré à Bun ≥ 1.4.4                  |
 | Type/contenu   | **astro check**                | Couvre `.astro` que oxlint ne parse pas                     |
 | Dev env        | **flake.nix** (bun, git)       | Shell reproductible                                         |
 
