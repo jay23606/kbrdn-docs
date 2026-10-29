@@ -3,7 +3,7 @@
 [![ci](https://github.com/kbrdn1/kbrdn-docs/actions/workflows/ci.yml/badge.svg)](https://github.com/kbrdn1/kbrdn-docs/actions/workflows/ci.yml)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 [![docs](https://img.shields.io/badge/docs-gwm.kbrdn.dev-d4825d)](https://gwm.kbrdn.dev/)
-[![bun](https://img.shields.io/badge/bun-1.3.1-fbf0df?logo=bun)](https://bun.sh)
+[![bun](https://img.shields.io/badge/bun-1.4.4-fbf0df?logo=bun)](https://bun.sh)
 
 **One [Astro Starlight](https://starlight.astro.build) site per product, one shared design system, and not a single product page authored here.**
 

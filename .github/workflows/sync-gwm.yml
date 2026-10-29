@@ -53,7 +53,7 @@ jobs:
 
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.3.1
+          bun-version: 1.4.4
 
       # Le script de conversion n'importe que des modules node : il tournerait
       # sans dépendances. C'est prettier qui les impose, et il faut le prettier
