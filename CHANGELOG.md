@@ -100,12 +100,15 @@ version lives in its own file under [`changelogs/`](changelogs/).
   exempted as large text — true only above ~800 px, below which the `clamp`
   drops it under 24 px and the threshold rises to 4.5:1; the repo card link
   label ([#78](https://github.com/kbrdn1/kbrdn-docs/issues/78)).
-- Two last accent-as-text usages, out of axe's reach: the capture tags of the
-  landing pages, which it rates `incomplete` behind the sections'
-  pseudo-elements (3.67:1 dark, 3.20:1 light), and the copy button's label on
-  hover and in its "copied" state, which it never sees (3.38:1, 2.94:1). Both
-  now use the text token: 10.01:1 and 5.70:1 for the tags, 9.21:1 and 5.24:1
-  for the button ([#78](https://github.com/kbrdn1/kbrdn-docs/issues/78)).
+- Three last accent-as-text usages, out of axe's reach: the capture tags of
+  the landing pages, which it rates `incomplete` behind the sections'
+  pseudo-elements (3.67:1 dark, 3.20:1 light); the copy button's label on
+  hover and in its "copied" state, which it never sees (3.38:1, 2.94:1); the
+  numbers of ordered lists, painted on `::marker`, which it does not test
+  (4.12:1, 3.88:1). All three now use the text token: 10.01:1 and 5.70:1 for
+  the tags, 9.21:1 and 5.24:1 for the button, 11.22:1 and 6.90:1 for the
+  numbers. Bullets keep the brand colour, at the 3:1 a graphic needs
+  ([#78](https://github.com/kbrdn1/kbrdn-docs/issues/78)).
 - **Known exception, deliberate.** The primary action button keeps the charter
   pair — #f5f5f5 on #c15f3c, 3.87:1 against a 4.5:1 threshold. Moving its rest
   state to `accent-high` would clear it (11.27:1 dark, 6.90:1 light) but turns

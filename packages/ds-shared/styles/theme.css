@@ -694,11 +694,14 @@ starlight-lang-select select {
   color: var(--sl-color-gray-3);
 }
 
-/* Puces et numéros en orange (prose.css :130-137). */
+/* Puces et numéros en orange (prose.css :130-137). La puce est un graphisme
+   (3:1), le jeton de marque y passe ; le numéro est du texte (4,5:1), il prend
+   le jeton de texte, comme tous les autres textes accentués. */
 .sl-markdown-content :is(ul, ol) > li::marker {
   color: var(--sl-color-accent);
 }
 .sl-markdown-content ol > li::marker {
+  color: var(--sl-color-text-accent);
   font-weight: 600;
 }
 
