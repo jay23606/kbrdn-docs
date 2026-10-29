@@ -53,13 +53,14 @@ jobs:
 
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.3.1
+          bun-version: 1.4.4
 
-      # Le script de conversion n'importe que des modules node : il tournerait
-      # sans dépendances. C'est prettier qui les impose, et il faut le prettier
-      # du lockfile, pas celui que `bunx` irait chercher : un écart de version
-      # entre le formateur qui écrit et le vérificateur qui relit est
-      # exactement ce qui produit une CI rouge irreproductible en local.
+      # Le formateur est Bun lui-même (`bun fmt`) : celui qui écrit ici et
+      # celui qui relit dans `ci.yml` sont le même binaire tant que les
+      # `bun-version` restent alignés. Un écart entre les deux est exactement
+      # ce qui produit une CI rouge irreproductible en local. Le script de
+      # conversion n'importe que des modules node ; les dépendances servent au
+      # garde plus bas, dont un test importe `satteri`.
       - run: bun install --frozen-lockfile
 
       - name: sync
@@ -67,13 +68,13 @@ jobs:
           GWM_REPO: ${{ github.workspace }}/.gwm-cli
         run: bun run sync:gwm
 
-      # `ci.yml` fait tourner `prettier --check .` sur chaque push : sans ce
+      # `ci.yml` fait tourner `bun fmt --check` sur chaque push : sans ce
       # passage, la conversion produit 80 fichiers non formatés et le commit du
       # bot repeint la CI en rouge à chaque livraison. Portée aux pages
       # générées, pour que le bot ne reformate jamais du travail écrit à la
       # main au passage.
       - name: formater la sortie
-        run: bunx prettier --write sites/gwm/src/content/docs
+        run: bun fmt sites/gwm/src/content/docs
 
       # Le garde des métadonnées publiées (`scripts/lib/metadata-guard.test.mjs`)
       # lit l'arbre généré : il doit tourner ici, entre l'écriture et le
