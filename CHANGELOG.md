@@ -71,13 +71,19 @@ version lives in its own file under [`changelogs/`](changelogs/).
   after three pulses instead of animating forever — three and not four because
   3 x 1.6s = 4.8s, just under the 5s past which an animation owes the reader a
   stop control ([#78](https://github.com/kbrdn1/kbrdn-docs/issues/78)).
-- Four more accent-as-text usages closed, all of them invisible at 1440 px and
+- Three more accent-as-text usages closed, all of them invisible at 1440 px and
   found by replaying the audit at its own two other viewports (320 px reflow,
   640 px for 200% zoom): the whole mobile table of contents, which is simply
   not in the DOM above the breakpoint; the hero tagline, which the audit
   exempted as large text — true only above ~800 px, below which the `clamp`
   drops it under 24 px and the threshold rises to 4.5:1; the repo card link
   label ([#78](https://github.com/kbrdn1/kbrdn-docs/issues/78)).
+- Two last accent-as-text usages, out of axe's reach: the capture tags of the
+  landing pages, which it rates `incomplete` behind the sections'
+  pseudo-elements (3.67:1 dark, 3.20:1 light), and the copy button's label on
+  hover and in its "copied" state, which it never sees (3.38:1, 2.94:1). Both
+  now use the text token: 10.01:1 and 5.70:1 for the tags, 9.21:1 and 5.24:1
+  for the button ([#78](https://github.com/kbrdn1/kbrdn-docs/issues/78)).
 - **Known exception, deliberate.** The primary action button keeps the charter
   pair — #f5f5f5 on #c15f3c, 3.87:1 against a 4.5:1 threshold. Moving its rest
   state to `accent-high` would clear it (11.27:1 dark, 6.90:1 light) but turns
@@ -85,7 +91,8 @@ version lives in its own file under [`changelogs/`](changelogs/).
   trade this site wants to make for its main button. #c15f3c sits mid-scale, so
   no text colour in the charter clears 4.5:1 on it: the only ways out are pure
   black (4.97:1) or 18.66px bold text, which would move the button to the 3:1
-  large-text threshold. Left as one known failing node on `/` and `/fr/`
+  large-text threshold. Left as one known failing node on `/` and `/fr/`,
+  tracked in [#88](https://github.com/kbrdn1/kbrdn-docs/issues/88)
   ([#78](https://github.com/kbrdn1/kbrdn-docs/issues/78)).
 - Hero install line can be reached with the keyboard. `overflow-x: auto` makes
   it scroll below ~340 px, and a scrolling region that no one can focus puts
@@ -96,16 +103,6 @@ version lives in its own file under [`changelogs/`](changelogs/).
   theme drops the sidebar to. The audit's three URLs each had a single-entry
   contents list, which is why it never showed up (WCAG 2.5.8)
   ([#78](https://github.com/kbrdn1/kbrdn-docs/issues/78)).
-- Zoom dialog no longer jumps the page on open, nor drifts as you scroll. Anchoring
-  the new close button with `position: relative` on the `<dialog>` overrode the
-  `fixed` a browser gives a modal dialog, dropping it back into the flow at the
-  end of `<body>`. The anchor moved to an inner frame
-  ([#78](https://github.com/kbrdn1/kbrdn-docs/issues/78)).
-- Zoom dialog's close button is visible in light theme. `--sl-color-white`
-  flips with the theme — #1a1a1a in light — so the cross came out black on the
-  button's black pill. That button floats on the modal backdrop, black in both
-  themes, so its colours are now hard-coded to that ground rather than to the
-  page behind it ([#78](https://github.com/kbrdn1/kbrdn-docs/issues/78)).
 - Footer copyright line reads "Built with Astro and Starlight" again. Astro
   glues text nodes to the element that follows them, and this paragraph lacked
   the explicit `{' '}` the one above it already used
